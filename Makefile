@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acottier <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: acottier <acottier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 13:55:41 by acottier          #+#    #+#              #
-#    Updated: 2017/12/12 18:52:47 by acottier         ###   ########.fr        #
+#    Updated: 2018/06/20 17:16:29 by acottier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ FLAGS 		= -Wall -Wextra -Werror
 SRC_PATH	= sources
 OBJ_PATH	= objects
 
-SRC_NAMES 	= malloc.c \
-			  utilities.c
-
+SRC_NAMES 	=	malloc.c \
+				free.c \
+				utilities.c
 OBJ_NAMES 	= $(SRC_NAMES:.c=.o)
 
 SRC			= $(addprefix $(SRC_PATH)/,$(SRC_NAMES))
