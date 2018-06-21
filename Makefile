@@ -6,7 +6,7 @@
 #    By: acottier <acottier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 13:55:41 by acottier          #+#    #+#              #
-#    Updated: 2018/06/20 17:16:29 by acottier         ###   ########.fr        #
+#    Updated: 2018/06/21 14:40:17 by acottier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ OBJ_PATH	= objects
 
 SRC_NAMES 	=	malloc.c \
 				free.c \
+				realloc.c \
+				show_alloc_mem.c \
 				utilities.c
 OBJ_NAMES 	= $(SRC_NAMES:.c=.o)
 

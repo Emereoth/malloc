@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/20 19:37:17 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/21 14:34:09 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/mman.h>
+
+typedef unsigned long int 	t_uli;
 
 typedef struct	s_ctrl
 {
@@ -49,7 +51,7 @@ enum
 ** MALLOC
 */
 
-void			*malloc(size_t size);
+void			*ft_malloc(size_t size);
 void			*find_alloc_point(size_t size, t_ctrl *alloc_list,
 				int zone_type);
 int				available_space(t_ctrl *cur, t_ctrl *next, size_t size);
@@ -69,6 +71,10 @@ t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list);
 
 void			*realloc(void *ptr, size_t size);
 
+/*
+** SHOW_ALLOC_MEM.C
+*/
+
 void			show_alloc_mem();
 
 /*
@@ -79,5 +85,6 @@ void			ft_putchar(char c);
 void			ft_putnbr(int n);
 void			ft_putstr(char *str);
 void			ft_putendl(char *str);
+void			ft_memcpy(void *dst, void *src, size_t n);
 
 #endif

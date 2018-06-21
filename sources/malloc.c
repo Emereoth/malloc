@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/20 19:32:26 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/21 14:33:57 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_data		g_allocations;
 
-void		*malloc(size_t size)
+void		*ft_malloc(size_t size)
 {
 	if (size <= TINY)
 		return (find_alloc_point(size, g_allocations.tiny, TINY));
@@ -30,7 +30,11 @@ void		*find_alloc_point(size_t size, t_ctrl *alloc_list, int zone_type)
 
 	if (alloc_list)
 		alloc_list = new_zone(NULL, size, zone_type);
+	else
+		ft_putstr("no alloc yet\n");
 	cur = alloc_list;
+	ft_putnbr(zone_type);
+	ft_putchar('\n');
 	while (cur && zone_type != -1)
 	{
 		if (available_space(cur, cur->next, size))
@@ -40,6 +44,7 @@ void		*find_alloc_point(size_t size, t_ctrl *alloc_list, int zone_type)
 		cur = cur->next;
 	}
 	alloc_list = new_zone(alloc_list, size, zone_type);
+	ft_putstr("loop done\n");
 	return (allocate(alloc_list, size, NULL));
 }
 

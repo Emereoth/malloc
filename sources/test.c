@@ -6,19 +6,21 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:53:07 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/19 14:23:38 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/21 17:14:34 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "../includes/malloc.h"
 
 int		main(void)
 {
 	void *	lol;
 
-	printf("\nTEST ZONE\n");
-	lol = malloc(0);
-	printf("\nTEST ZONE ENDS\n");
+	ft_putstr("\nTEST ZONE STARTS\n");
+	lol = ft_malloc(-1);
+	show_alloc_mem();
+	ft_putstr("\nTEST ZONE ENDS\n");
 	return (0);
 }
