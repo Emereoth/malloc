@@ -6,7 +6,7 @@
 #    By: acottier <acottier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 13:55:41 by acottier          #+#    #+#              #
-#    Updated: 2018/06/21 14:40:17 by acottier         ###   ########.fr        #
+#    Updated: 2018/06/26 15:20:28 by acottier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ifeq ($(HOSTTYPE),)
 endif
 
 NAME 		= libft_malloc_$(HOSTTYPE).so
-FLAGS 		= -Wall -Wextra -Werror
+FLAGS 		= -Wall -Wextra -Werror -g3
 
 SRC_PATH	= sources
 OBJ_PATH	= objects
@@ -42,6 +42,7 @@ $(NAME) : $(OBJ)
 	@printf "${GREEN}Malloc library compilation finished:${NC} "
 	@printf "${YELLOW}"
 	@cat time.txt | head -2 | tail -1
+	@printf "${NC}"
 	@rm time.txt
 	@ln -s $(NAME) libft_malloc.so
 

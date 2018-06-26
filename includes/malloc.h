@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/21 14:34:09 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/26 16:35:58 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,35 +47,38 @@ enum
 	SMALL_ZONE = (SMALL + CTRL) * 100
 };
 
+t_data		g_allocations;
+
 /*
 ** MALLOC
 */
 
 void			*ft_malloc(size_t size);
-void			*find_alloc_point(size_t size, t_ctrl *alloc_list,
+void			*find_alloc_point(size_t size, t_ctrl **alloc_list,
 				int zone_type);
 int				available_space(t_ctrl *cur, t_ctrl *next, size_t size);
 t_ctrl			*new_zone(t_ctrl *prev, size_t size, int zone_type);
-void			*allocate(t_ctrl *alloc_point, size_t size, t_ctrl *next);
+void			*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next);
 
 /*
 ** FREE
 */
 
-void			free(void *ptr);
+void			ft_free(void *ptr);
 t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list);
 
 /*
 ** REALLOC
 */
 
-void			*realloc(void *ptr, size_t size);
+void			*ft_realloc(void *ptr, size_t size);
 
 /*
 ** SHOW_ALLOC_MEM.C
 */
 
 void			show_alloc_mem();
+void			to_hex(t_uli address);
 
 /*
 ** UTILITIES
