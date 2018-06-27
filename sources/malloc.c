@@ -6,74 +6,92 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/26 16:37:44 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/27 17:02:20 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 #include <stdio.h>
 
+extern t_data	g_allocations;
+
 void		*ft_malloc(size_t size)
 {
+	t_ctrl		**alloc_point;
+	
 	if (size <= TINY)
 	{
-		ft_putstr("TINY ALLOCATION\n");
-		write(1, "0x", 2);
-		to_hex((t_uli)&g_allocations.tiny);
-		ft_putchar('\n');
-		return (find_alloc_point(size, &g_allocations.tiny, TINY));
+		ft_putstr("\n\nTINY ALLOCATION\n");
+		alloc_point = find_alloc_point(size, &g_allocations.tiny, TINY);
+		
+		return (allocate(alloc_point, size, (*alloc_point)->next));
 	}
 	else if (size <= SMALL)
 	{
-		ft_putstr("SMALL ALLOCATION\n");
-		return (find_alloc_point(size, &g_allocations.small, SMALL));
+		ft_putstr("\n\nSMALL ALLOCATION\n");
+		alloc_point = find_alloc_point(size, &g_allocations.small, SMALL);
+		return (allocate(alloc_point, size, (*alloc_point)->next));
 	}
 	else
 	{
-		ft_putstr("LARGE ALLOCATION\n");
-		return (find_alloc_point(size, &g_allocations.large, -1));
+		ft_putstr("\n\nLARGE ALLOCATION\n");
+		alloc_point = find_alloc_point(size, &g_allocations.large, -1);
+		return (allocate(alloc_point, size, (*alloc_point)->next));
 	}
 }
 
-void		*find_alloc_point(size_t size, t_ctrl **alloc_list, int zone_type)
+t_ctrl		**find_alloc_point(size_t size, t_ctrl **alloc_list, int zone_type)
 {
-	t_ctrl		*cur;
+	t_ctrl		**tmp;
 
-	if (*alloc_list)
+	if (!(*alloc_list))
 	{
 		ft_putstr("no alloc list for this size, creating one\n");
 		*alloc_list = new_zone(NULL, size, zone_type);
-		ft_putstr("confirming new zone address: ");
-		write(1, "0x", 2);
-		to_hex((t_uli)alloc_list);
-		ft_putchar('\n');
+		ft_putstr("new zone address:\n");
+		show_address(alloc_list);
+		return (alloc_list);
 	}
-	cur = *alloc_list;
-	while (cur && zone_type != -1)
+	while (*alloc_list && zone_type != -1)
 	{
-		if (available_space(cur, cur->next, size))
-			return (allocate(&cur, size, cur->next));
+		if (available_space(alloc_list, (*alloc_list)->next, size) == 0)
+		{
+			ft_putstr("confirming available_space() addresses\n");
+			show_address(alloc_list);
+			tmp = alloc_list + (*alloc_list)->size;
+			show_address(tmp);
+			return ((void*)alloc_list + (void*)((*alloc_list)->size);
+		}
 		else
 			ft_putstr("no space on current zone\n");
-		if (!(cur->next))
+		if (!(*alloc_list)->next)
 			break ;
-		cur = cur->next;
+		*alloc_list = (*alloc_list)->next;
 	}
-	*alloc_list = new_zone(*alloc_list, size, zone_type);
-	return (allocate(alloc_list, size, NULL));
+	(*alloc_list)->next = new_zone(*alloc_list, size, zone_type);
+	ft_putstr("new zone address:\n");
+	show_address(alloc_list);
+	return (alloc_list);
 }
 
-int			available_space(t_ctrl *cur, t_ctrl *next, size_t size)
+int			available_space(t_ctrl **cur, t_ctrl *next, size_t size)
 {
-	ft_putstr("testing zone: ");
-	write(1, "0x", 2);
-	to_hex((t_uli)&cur);
-	ft_putchar('\n');
-	if (next && cur->zone == next->zone)
-		if (next->pos - (cur->pos + cur->size) >= size)
+	t_ctrl		**tmp;
+
+	ft_putstr("AVAILABLE_SPACE\ntesting zone: ");
+	show_address(cur);
+	if (next && (*cur)->zone == next->zone)
+		if (next->pos - ((*cur)->pos + (*cur)->size) >= size)
 			return (0);
-	if (cur->zone_size - (cur->pos + cur->size) >= size)
+	if ((*cur)->zone_size - ((*cur)->pos + (*cur)->size) >= size)
+	{
+		show_address(cur);
+		ft_putstr("->\n");
+		tmp = cur + (*cur)->size;
+		show_address(tmp);
+		ft_putchar('\n');
 		return (0);
+	}
 	return (1);
 }
 
@@ -99,10 +117,6 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 	if (prev)
 		prev->next = res;
 	res->next = NULL;
-	ft_putstr("zone address: ");
-	write(1, "0x", 2);
-	to_hex((t_uli)&res);
-	ft_putstr("\n\n");
 	return (res);
 }
 
@@ -131,9 +145,9 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next)
 	}
 	if (next)
 		next->prev = *alloc_point;
-	ft_putstr("displaying allocated zone address:\n");
-	write(1, "0x", 2);
-	to_hex((t_uli)alloc_point + CTRL);
-	ft_putchar('\n');
-	return (*alloc_point + CTRL);
+	ft_putstr("control structure address:\n");
+	show_address(alloc_point);
+	ft_putstr("allocation zone address:\n");
+	show_address(alloc_point + CTRL);
+	return (*(alloc_point + CTRL));
 }

@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/26 16:35:58 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/27 16:37:12 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct	s_data
 	t_ctrl	*large;
 }				t_data;
 
+t_data		g_allocations;
+
 enum
 {
 	CTRL = sizeof(struct s_ctrl),
@@ -47,16 +49,14 @@ enum
 	SMALL_ZONE = (SMALL + CTRL) * 100
 };
 
-t_data		g_allocations;
-
 /*
 ** MALLOC
 */
 
 void			*ft_malloc(size_t size);
-void			*find_alloc_point(size_t size, t_ctrl **alloc_list,
+t_ctrl			**find_alloc_point(size_t size, t_ctrl **alloc_list,
 				int zone_type);
-int				available_space(t_ctrl *cur, t_ctrl *next, size_t size);
+int				available_space(t_ctrl **cur, t_ctrl *next, size_t size);
 t_ctrl			*new_zone(t_ctrl *prev, size_t size, int zone_type);
 void			*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next);
 
@@ -87,7 +87,7 @@ void			to_hex(t_uli address);
 void			ft_putchar(char c);
 void			ft_putnbr(int n);
 void			ft_putstr(char *str);
-void			ft_putendl(char *str);
 void			ft_memcpy(void *dst, void *src, size_t n);
+void			show_address(t_ctrl **address);
 
 #endif

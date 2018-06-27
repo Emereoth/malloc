@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:45:24 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/20 19:35:42 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/27 15:29:26 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,11 @@ void		ft_memcpy(void *dst, void *src, size_t n)
 		new_dst[i] = new_src[i];
 		i++;
 	}
+}
+
+void		show_address(t_ctrl **address)
+{
+	write(1, "0x", 2);
+	to_hex((t_uli)address);
+	ft_putchar('\n');
 }
