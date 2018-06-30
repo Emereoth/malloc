@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/27 16:37:12 by acottier         ###   ########.fr       */
+/*   Updated: 2018/06/30 17:57:05 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ enum
 */
 
 void			*ft_malloc(size_t size);
-t_ctrl			**find_alloc_point(size_t size, t_ctrl **alloc_list,
+void			*find_alloc_point(size_t size, t_ctrl **alloc_list,
 				int zone_type);
-int				available_space(t_ctrl **cur, t_ctrl *next, size_t size);
+int				available_space(t_ctrl *cur, size_t size);
 t_ctrl			*new_zone(t_ctrl *prev, size_t size, int zone_type);
-void			*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next);
+void			*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next, t_ctrl *prev);
 
 /*
 ** FREE
@@ -88,6 +88,6 @@ void			ft_putchar(char c);
 void			ft_putnbr(int n);
 void			ft_putstr(char *str);
 void			ft_memcpy(void *dst, void *src, size_t n);
-void			show_address(t_ctrl **address);
+void			show_address(t_ctrl *address);
 
 #endif
