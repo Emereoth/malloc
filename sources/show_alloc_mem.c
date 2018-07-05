@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/06/30 17:34:25 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/05 14:35:46 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern t_data	g_allocations;
 
 static void		display_chunk(t_ctrl *alloc_list)
 {
+	static int		i = 0;
 	write(1, "0x", 2);
 	to_hex((t_uli)alloc_list + CTRL);
 	ft_putstr(" - ");
@@ -23,19 +24,19 @@ static void		display_chunk(t_ctrl *alloc_list)
 	to_hex((t_uli)alloc_list + alloc_list->size);
 	ft_putstr(" : ");
 	ft_putnbr(alloc_list->size - CTRL);
-	ft_putstr(" octets\n");
+	ft_putstr(" octets ");
+	ft_putnbr(i);
+	ft_putchar('\n');
+	i++;
 }
 
 static void		display_zone(t_ctrl *alloc_list, char *type)
 {
-	size_t		zone;
-
 	ft_putstr(type);
 	write(1, "0x", 2);
 	to_hex((t_uli)alloc_list);
 	ft_putchar('\n');
-	zone = alloc_list->zone;
-	while (alloc_list && alloc_list->zone == zone)
+	while (alloc_list)
 	{
 		display_chunk(alloc_list);
 		alloc_list = alloc_list->next;
@@ -50,42 +51,24 @@ void			to_hex(t_uli address)
 	write(1, &address, 1);
 }
 
-t_ctrl			*next_zone(t_ctrl *alloc_list)
-{
-	size_t			zone;
-
-	zone = alloc_list->zone;
-	while (alloc_list && alloc_list->zone == zone)
-		alloc_list = alloc_list->next;
-	return (alloc_list);
-}
-
 void			show_alloc_mem(void)
 {
 	t_ctrl	*cursor;
 
 	cursor = g_allocations.tiny;
+	// show_address(cursor);
 	if (!cursor)
 		ft_putstr("no tiny allocations\n");
-	while (cursor)
-	{ 
+	else
 		display_zone(cursor, "TINY : ");
-		cursor = next_zone(cursor);
-	}
 	cursor = g_allocations.small;
 	if (!cursor)
 		ft_putstr("no small allocations\n");
-	while (cursor)
-	{
+	else
 		display_zone(cursor, "SMALL : ");
-		cursor = next_zone(cursor);
-	}
 	cursor = g_allocations.large;
 	if (!cursor)
 		ft_putstr("no large allocations\n");
-	while (cursor)
-	{
+	else
 		display_zone(cursor, "LARGE : ");
-		cursor = next_zone(cursor);
-	}
 }
