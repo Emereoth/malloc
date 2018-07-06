@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:53:07 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/06 15:03:51 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/06 15:12:18 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 int		main(void)
 {
-	void *	lol;
-	void *	lel;
-	void *	lul;
+	// void *	lol;
+	// void *	lel;
+	// void *	lul;
 
 	ft_putstr("\nTEST ZONE STARTS\n\n");
 	
