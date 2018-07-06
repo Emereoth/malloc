@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/05 14:35:46 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/06 13:39:26 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ extern t_data	g_allocations;
 
 static void		display_chunk(t_ctrl *alloc_list)
 {
-	static int		i = 0;
 	write(1, "0x", 2);
 	to_hex((t_uli)alloc_list + CTRL);
 	ft_putstr(" - ");
@@ -24,10 +23,7 @@ static void		display_chunk(t_ctrl *alloc_list)
 	to_hex((t_uli)alloc_list + alloc_list->size);
 	ft_putstr(" : ");
 	ft_putnbr(alloc_list->size - CTRL);
-	ft_putstr(" octets ");
-	ft_putnbr(i);
-	ft_putchar('\n');
-	i++;
+	ft_putstr(" octets\n");
 }
 
 static void		display_zone(t_ctrl *alloc_list, char *type)
@@ -56,7 +52,6 @@ void			show_alloc_mem(void)
 	t_ctrl	*cursor;
 
 	cursor = g_allocations.tiny;
-	// show_address(cursor);
 	if (!cursor)
 		ft_putstr("no tiny allocations\n");
 	else

@@ -6,7 +6,7 @@
 #    By: acottier <acottier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 13:55:41 by acottier          #+#    #+#              #
-#    Updated: 2018/06/26 15:20:28 by acottier         ###   ########.fr        #
+#    Updated: 2018/07/06 14:07:38 by acottier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,8 @@ OBJ_NAMES 	= $(SRC_NAMES:.c=.o)
 SRC			= $(addprefix $(SRC_PATH)/,$(SRC_NAMES))
 OBJ			= $(addprefix $(OBJ_PATH)/,$(OBJ_NAMES))
 
+.PHONY: all clean fclen re fast
+
 all : $(NAME)
 
 $(NAME) : $(OBJ)
@@ -44,7 +46,7 @@ $(NAME) : $(OBJ)
 	@cat time.txt | head -2 | tail -1
 	@printf "${NC}"
 	@rm time.txt
-	@ln -s $(NAME) libft_malloc.so
+	@ln -fs $(NAME) libft_malloc.so
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH) && gcc $(FLAGS) -o $@ -c $<
