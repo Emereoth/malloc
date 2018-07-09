@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 14:33:23 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/06 15:12:31 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/09 18:00:35 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void		clear_memory(t_ctrl *to_free)
 	next = to_free->next;
 	if (to_free->zone_start == 0)
 	{
-		prev->next = next;
-		next->prev = prev;
+		if (prev)
+			prev->next = next;
+		if (next)
+			next->prev = prev;
 	}
 }
 
@@ -46,11 +48,14 @@ void			free(void *ptr)
 {
 	t_ctrl	*to_free;
 
+	ft_putstr("FREE IN\n");
+	show_alloc_mem();
 	if (!ptr || !(ptr - CTRL))
+	{
+		ft_putstr("FREE OUT\n");
 		return ;
+	}
 	ptr -= CTRL;
-	// ft_putstr("looking for ctrl structure at address:\n");
-	// show_address((void*)ptr);
 	to_free = find_memory(ptr, g_allocations.tiny);
 	if (!to_free)
 		to_free = find_memory(ptr, g_allocations.small);
@@ -58,8 +63,7 @@ void			free(void *ptr)
 		to_free = find_memory(ptr, g_allocations.large);
 	if (to_free)
 		clear_memory(to_free);
-	// else
-		// ft_putstr("wtf, no zone found\n");
 	if (to_free && to_free->size != TINY && to_free->size != SMALL)
 		munmap(to_free, to_free->size);
+	ft_putstr("FREE OUT\n");
 }

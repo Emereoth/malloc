@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/06 13:39:26 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/09 18:00:12 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void		display_chunk(t_ctrl *alloc_list)
 	to_hex((t_uli)alloc_list + CTRL);
 	ft_putstr(" - ");
 	write(1, "0x", 2);
+	ft_putstr("WESDRFTGVYBHUDXRFTGVBHJNRDXFGHJ\n");
 	to_hex((t_uli)alloc_list + alloc_list->size);
 	ft_putstr(" : ");
 	ft_putnbr(alloc_list->size - CTRL);
@@ -41,6 +42,7 @@ static void		display_zone(t_ctrl *alloc_list, char *type)
 
 void			to_hex(t_uli address)
 {
+	ft_putstr("hey\n");
 	if (address > 9)
 		to_hex(address / 16);
 	address = address % 16 < 10 ? address % 16 + 48 : address % 16 + 55;
@@ -52,18 +54,12 @@ void			show_alloc_mem(void)
 	t_ctrl	*cursor;
 
 	cursor = g_allocations.tiny;
-	if (!cursor)
-		ft_putstr("no tiny allocations\n");
-	else
+	if (cursor)
 		display_zone(cursor, "TINY : ");
 	cursor = g_allocations.small;
-	if (!cursor)
-		ft_putstr("no small allocations\n");
-	else
+	if (cursor)
 		display_zone(cursor, "SMALL : ");
 	cursor = g_allocations.large;
-	if (!cursor)
-		ft_putstr("no large allocations\n");
-	else
+	if (cursor)
 		display_zone(cursor, "LARGE : ");
 }
