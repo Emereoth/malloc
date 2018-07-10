@@ -1,3 +1,7 @@
 {
-	"editor.cursorStyle": "line-thin"
+	"editor.cursorStyle": "line-thin",
+	"files.associations": {
+		"__functional_03": "c",
+		"functional": "c"
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/09 17:59:25 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/10 16:58:21 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ extern t_data	g_allocations;
 // 	}
 // }
 
-void		*ft_malloc(size_t size)
+void		*malloc(size_t size)
 {
-	ft_putstr("MALLOC IN ");
+	ft_putstr("MALLOC IN: ");
 	ft_putnbr(size);
 	ft_putchar('\n');
 	if (size <= TINY)
@@ -154,7 +154,7 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next, t_ctrl *prev)
 		(*alloc_point)->zone_size = prev->zone_size;
 	(*alloc_point)->prev = prev;
 	(*alloc_point)->next = next;
-	
+
 	if (prev)
 	{
 		// ft_putstr("prev control structure:\n");
@@ -174,6 +174,6 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next, t_ctrl *prev)
 	// ft_putstr("allocation zone end:\n");
 	// show_address((void*)*alloc_point + CTRL + size);
 	// show_zones();
-	// ft_putstr("MALLOC OUT\n");
+	ft_putstr("MALLOC OUT\n");
 	return ((*alloc_point + 1));
 }

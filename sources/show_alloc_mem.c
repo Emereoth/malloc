@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/09 18:00:12 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/10 17:06:17 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ extern t_data	g_allocations;
 static void		display_chunk(t_ctrl *alloc_list)
 {
 	write(1, "0x", 2);
-	to_hex((t_uli)alloc_list + CTRL);
+	to_hex((t_uli)(alloc_list + 1));
 	ft_putstr(" - ");
 	write(1, "0x", 2);
-	ft_putstr("WESDRFTGVYBHUDXRFTGVBHJNRDXFGHJ\n");
-	to_hex((t_uli)alloc_list + alloc_list->size);
+	to_hex((t_uli)((void*)alloc_list + alloc_list->size));
 	ft_putstr(" : ");
 	ft_putnbr(alloc_list->size - CTRL);
 	ft_putstr(" octets\n");
@@ -42,7 +41,6 @@ static void		display_zone(t_ctrl *alloc_list, char *type)
 
 void			to_hex(t_uli address)
 {
-	ft_putstr("hey\n");
 	if (address > 9)
 		to_hex(address / 16);
 	address = address % 16 < 10 ? address % 16 + 48 : address % 16 + 55;
