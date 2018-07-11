@@ -2,6 +2,13 @@
 	"editor.cursorStyle": "line-thin",
 	"files.associations": {
 		"__functional_03": "c",
-		"functional": "c"
+		"functional": "c",
+		"iterator": "c",
+		"bitset": "c",
+		"initializer_list": "c",
+		"memory": "c",
+		"string": "c",
+		"string_view": "c",
+		"utility": "c"
 	}
 }

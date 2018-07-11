@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/10 15:26:55 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/11 15:47:09 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 # include <sys/mman.h>
 # include <stdio.h>
 
-typedef unsigned long int 	t_uli;
+typedef unsigned long int	t_uli;
 
 typedef struct	s_ctrl
 {
 	size_t			size;
 	size_t			zone;
-	size_t			zone_start;
 	int				pos;
 	int				zone_size;
 	struct s_ctrl	*prev;
@@ -59,7 +58,8 @@ void			*find_alloc_point(size_t size, t_ctrl **alloc_list,
 				int zone_type);
 int				available_space(t_ctrl *cur, size_t size);
 t_ctrl			*new_zone(t_ctrl *prev, size_t size, int zone_type);
-void			*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next, t_ctrl *prev);
+void			*allocate(t_ctrl **alloc_point, size_t size,
+				t_ctrl *next, t_ctrl *prev);
 
 /*
 ** FREE

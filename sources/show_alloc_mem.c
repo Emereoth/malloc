@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/10 17:06:17 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/11 13:32:04 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ static void		display_chunk(t_ctrl *alloc_list)
 	to_hex((t_uli)(alloc_list + 1));
 	ft_putstr(" - ");
 	write(1, "0x", 2);
-	to_hex((t_uli)((void*)alloc_list + alloc_list->size));
+	if (alloc_list->size == 0)
+		to_hex((t_uli)(alloc_list + 1));
+	else
+		to_hex((t_uli)((void*)alloc_list + alloc_list->size));
 	ft_putstr(" : ");
-	ft_putnbr(alloc_list->size - CTRL);
+	if (alloc_list->size == 0)
+		ft_putnbr(0);
+	else
+		ft_putnbr(alloc_list->size - CTRL);
 	ft_putstr(" octets\n");
 }
 

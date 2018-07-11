@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 17:23:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/10 17:05:04 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/11 15:45:10 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ static void		*move_memory(t_ctrl *target, size_t size)
 	}
 	new_alloc = malloc(size);
 	ft_memcpy(new_alloc, target, size);
-	ft_putchar('\n');
 	free(target + 1);
-	ft_putstr("REALLOC OUT\n");
 	return (new_alloc);
 }
 
@@ -49,20 +47,12 @@ void			*realloc(void *ptr, size_t size)
 {
 	t_ctrl	*target;
 
-	ft_putstr("REALLOC IN: ");
-	ft_putnbr(size);
-	ft_putchar(' ');
 	if (!ptr)
-	{
-		ft_putstr("\nREALLOC OUT\n");
 		return (malloc(size));
-	}
-	show_address(ptr);
 	ptr -= CTRL;
 	if (ptr && size == 0)
 	{
 		free(ptr);
-		ft_putstr("REALLOC OUT\n");
 		return (malloc(0));
 	}
 	target = get_memory(ptr);
