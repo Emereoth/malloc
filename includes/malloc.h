@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/11 15:47:09 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/11 16:29:05 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,11 @@ void			ft_putnbr(int n);
 void			ft_putstr(char *str);
 void			ft_memcpy(void *dst, void *src, size_t n);
 void			show_address(t_ctrl *address);
+
+/*
+** UTILITIES2.c
+*/
+
+size_t			aligned_size(size_t size);
 
 #endif

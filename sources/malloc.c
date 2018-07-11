@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/11 15:48:01 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/11 16:33:54 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ extern t_data	g_allocations;
 
 void		*malloc(size_t size)
 {
+	ft_putstr("min\n");
+	size = aligned_size(size);
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -42,7 +44,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 		{
 			if (cursor->pos + cursor->size > cursor->zone_size + size)
 				break ;
-			target = (void*)cursor + cursor->size;
+			target = (void*)cursor + aligned_size(cursor->size);
 			return (allocate(&target, size, cursor->next, cursor));
 		}
 		if (!(cursor->next))
@@ -56,23 +58,25 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 int			available_space(t_ctrl *cur, size_t size)
 {
 	t_ctrl			*next;
+	size_t			size16;
 
 	next = cur->next;
+	size16 = aligned_size(cur->size);
 	if (next == NULL)
 	{
-		if (cur->zone_size - (cur->pos + cur->size) >= CTRL + size)
+		if (cur->zone_size - (cur->pos + size16) >= CTRL + size)
 			return (0);
 	}
 	else
 	{
 		if (next->zone == cur->zone)
 		{
-			if (next->pos - (cur->pos + cur->size) >= CTRL + size)
+			if (next->pos - (cur->pos + size16) >= CTRL + size)
 				return (0);
 		}
 		else
 		{
-			if (cur->zone_size - (cur->pos + cur->size) >= CTRL + size)
+			if (cur->zone_size - (cur->pos + size16) >= CTRL + size)
 				return (0);
 		}
 	}
@@ -119,5 +123,6 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		prev->next = (*alloc_point);
 	if (next && next != *alloc_point)
 		next->prev = (*alloc_point);
+	ft_putstr("mout\n");
 	return ((*alloc_point + 1));
 }

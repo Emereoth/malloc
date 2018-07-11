@@ -6,7 +6,7 @@
 #    By: acottier <acottier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/01 13:55:41 by acottier          #+#    #+#              #
-#    Updated: 2018/07/06 15:14:54 by acottier         ###   ########.fr        #
+#    Updated: 2018/07/11 16:28:57 by acottier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC_NAMES 	=	malloc.c \
 				free.c \
 				realloc.c \
 				show_alloc_mem.c \
-				utilities.c
+				utilities.c \
+				utilities2.c
 OBJ_NAMES 	= $(SRC_NAMES:.c=.o)
 
 SRC			= $(addprefix $(SRC_PATH)/,$(SRC_NAMES))
