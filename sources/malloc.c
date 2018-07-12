@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/11 16:33:54 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/12 16:15:41 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ extern t_data	g_allocations;
 
 void		*malloc(size_t size)
 {
-	ft_putstr("min\n");
-	size = aligned_size(size);
+	ft_putstr("Min\n");
+	// size = aligned_size(size);
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -42,7 +42,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	{
 		if (zone_type != -1 && available_space(cursor, size) == 0)
 		{
-			if (cursor->pos + cursor->size > cursor->zone_size + size)
+			if (cursor->pos + cursor->size > (cursor->zone_size + size))
 				break ;
 			target = (void*)cursor + aligned_size(cursor->size);
 			return (allocate(&target, size, cursor->next, cursor));
@@ -58,25 +58,23 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 int			available_space(t_ctrl *cur, size_t size)
 {
 	t_ctrl			*next;
-	size_t			size16;
 
 	next = cur->next;
-	size16 = aligned_size(cur->size);
 	if (next == NULL)
 	{
-		if (cur->zone_size - (cur->pos + size16) >= CTRL + size)
+		if (cur->zone_size - (cur->pos + cur->size) >= CTRL + size)
 			return (0);
 	}
 	else
 	{
 		if (next->zone == cur->zone)
 		{
-			if (next->pos - (cur->pos + size16) >= CTRL + size)
+			if (next->pos - (cur->pos + cur->size) >= CTRL + size)
 				return (0);
 		}
 		else
 		{
-			if (cur->zone_size - (cur->pos + size16) >= CTRL + size)
+			if (cur->zone_size - (cur->pos + cur->size) >= CTRL + size)
 				return (0);
 		}
 	}
@@ -96,8 +94,9 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 		zone_size = CTRL + size;
 	res = mmap(0, zone_size, PROT_READ | PROT_WRITE,
 		MAP_ANON | MAP_PRIVATE, -1, 0);
-	res->pos = 0;
+	res->size = 0;
 	res->zone = (prev ? prev->zone + 1 : 0);
+	res->pos = 0;
 	res->zone_size = zone_size;
 	res->prev = prev;
 	if (prev)
@@ -123,6 +122,8 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		prev->next = (*alloc_point);
 	if (next && next != *alloc_point)
 		next->prev = (*alloc_point);
-	ft_putstr("mout\n");
+	// ft_putstr("ALLOOOOOOOOOOC: ");
+	// show_address((void*)*alloc_point + CTRL);
+	ft_putstr("Mout\n");
 	return ((*alloc_point + 1));
 }

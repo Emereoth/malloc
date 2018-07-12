@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/11 15:55:52 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/12 16:17:36 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern t_data	g_allocations;
 
 static void		display_chunk(t_ctrl *alloc_list)
 {
+	if (alloc_list->size == 0)
+		return ;
 	write(1, "0x", 2);
 	to_hex((t_uli)(alloc_list + 1));
 	ft_putstr(" - ");
@@ -25,15 +27,15 @@ static void		display_chunk(t_ctrl *alloc_list)
 	else
 		to_hex((t_uli)((void*)alloc_list + alloc_list->size));
 	ft_putstr(" : ");
-	if (alloc_list->size == 0)
-		ft_putnbr(0);
-	else
-		ft_putnbr(alloc_list->size - CTRL);
+	ft_putnbr(alloc_list->size - CTRL);
 	ft_putstr(" octets\n");
 }
 
-static void		display_zone(t_ctrl *alloc_list, char *type)
+static size_t	display_zone(t_ctrl *alloc_list, char *type)
 {
+	size_t		zone_total;
+
+	zone_total = 0;
 	ft_putstr(type);
 	write(1, "0x", 2);
 	to_hex((t_uli)alloc_list);
@@ -41,8 +43,10 @@ static void		display_zone(t_ctrl *alloc_list, char *type)
 	while (alloc_list)
 	{
 		display_chunk(alloc_list);
+		zone_total += alloc_list->size - CTRL;
 		alloc_list = alloc_list->next;
 	}
+	return (zone_total);
 }
 
 void			to_hex(t_uli address)
@@ -55,15 +59,20 @@ void			to_hex(t_uli address)
 
 void			show_alloc_mem(void)
 {
-	t_ctrl	*cursor;
+	t_ctrl				*cursor;
+	size_t				total_size;
 
+	total_size = 0;
 	cursor = g_allocations.tiny;
 	if (cursor)
-		display_zone(cursor, "TINY : ");
+		total_size += display_zone(cursor, "TINY : ");
 	cursor = g_allocations.small;
 	if (cursor)
-		display_zone(cursor, "SMALL : ");
+		total_size += display_zone(cursor, "SMALL : ");
 	cursor = g_allocations.large;
 	if (cursor)
-		display_zone(cursor, "LARGE : ");
+		total_size += display_zone(cursor, "LARGE : ");
+	ft_putstr("Total: ");
+	ft_putnbr(total_size);
+	ft_putstr(" octets\n");
 }

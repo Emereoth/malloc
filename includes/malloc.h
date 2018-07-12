@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/11 16:29:05 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/12 12:01:26 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ typedef unsigned long int	t_uli;
 typedef struct	s_ctrl
 {
 	size_t			size;
-	size_t			zone;
-	int				pos;
-	int				zone_size;
+	unsigned char	zone;
+	size_t			pos;
+	size_t			zone_size;
 	struct s_ctrl	*prev;
 	struct s_ctrl	*next;
 
