@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/12 16:15:41 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/17 16:04:47 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 extern t_data	g_allocations;
 
-void		*malloc(size_t size)
+void		*ft_malloc(size_t size)
 {
-	ft_putstr("Min\n");
-	// size = aligned_size(size);
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -40,11 +38,11 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	cursor = *alloc;
 	while (cursor)
 	{
-		if (zone_type != -1 && available_space(cursor, size) == 0)
+		if (available_space(cursor, size) == 0)
 		{
-			if (cursor->pos + cursor->size > (cursor->zone_size + size))
+			if (zone_type == -1)
 				break ;
-			target = (void*)cursor + aligned_size(cursor->size);
+			target = (void*)cursor + cursor->size;
 			return (allocate(&target, size, cursor->next, cursor));
 		}
 		if (!(cursor->next))
@@ -122,8 +120,5 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		prev->next = (*alloc_point);
 	if (next && next != *alloc_point)
 		next->prev = (*alloc_point);
-	// ft_putstr("ALLOOOOOOOOOOC: ");
-	// show_address((void*)*alloc_point + CTRL);
-	ft_putstr("Mout\n");
 	return ((*alloc_point + 1));
 }
