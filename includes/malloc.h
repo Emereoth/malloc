@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/17 13:44:06 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:12:01 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ enum
 ** MALLOC
 */
 
-void			*ft_malloc(size_t size);
+void			*malloc(size_t size);
 void			*find_alloc_point(size_t size, t_ctrl **alloc_list,
 				int zone_type);
 int				available_space(t_ctrl *cur, size_t size);
@@ -67,14 +67,14 @@ void			*allocate(t_ctrl **alloc_point, size_t size,
 ** FREE
 */
 
-void			ft_free(void *ptr);
+void			free(void *ptr);
 t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list);
 
 /*
 ** REALLOC
 */
 
-void			*ft_realloc(void *ptr, size_t size);
+void			*realloc(void *ptr, size_t size);
 
 /*
 ** SHOW_ALLOC_MEM.C

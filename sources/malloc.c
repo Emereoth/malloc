@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/17 16:04:47 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:11:27 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 extern t_data	g_allocations;
 
-void		*ft_malloc(size_t size)
+void		*malloc(size_t size)
 {
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));

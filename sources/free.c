@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 14:33:23 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/17 13:43:54 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/19 13:11:35 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list)
 	return (cursor);
 }
 
-void			ft_free(void *ptr)
+void			free(void *ptr)
 {
 	t_ctrl	*to_free;
 
