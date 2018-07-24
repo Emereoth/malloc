@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/19 13:12:01 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/24 16:59:26 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef struct	s_ctrl
 	size_t			size;
 	unsigned char	zone;
 	size_t			pos;
-	// size_t			data;
-	// size_t			padding;
 	size_t			zone_size;
 	struct s_ctrl	*prev;
 	struct s_ctrl	*next;
@@ -46,7 +44,9 @@ enum
 {
 	CTRL = sizeof(struct s_ctrl),
 	TINY = 4096,
+	// TINY = 992,
 	SMALL = 4096 * 16,
+	// SMALL = 127000,
 	TINY_ZONE = (TINY + CTRL) * 100,
 	SMALL_ZONE = (SMALL + CTRL) * 100
 };

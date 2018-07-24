@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/19 13:11:27 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/24 17:00:12 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ extern t_data	g_allocations;
 
 void		*malloc(size_t size)
 {
+	// ft_putstr("Min: ");
+	// ft_putnbr(size);
+	// ft_putchar('\n');
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -84,6 +87,7 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 	t_ctrl		*res;
 	int			zone_size;
 
+	// ft_putstr("new page\n");
 	if (zone_type == TINY)
 		zone_size = TINY_ZONE;
 	else if (zone_type == SMALL)
@@ -120,5 +124,26 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		prev->next = (*alloc_point);
 	if (next && next != *alloc_point)
 		next->prev = (*alloc_point);
+	// ft_putstr("control structure start: ");
+	// show_address(*alloc_point);
+	// ft_putstr("memory segment start: ");
+	// show_address(*alloc_point + 1);
+	// ft_putstr("memory segment end: ");
+	// show_address((void*)*alloc_point + size);
+	// ft_putstr("prev set to ");
+	// if (prev)
+	// 	show_address(prev);
+	// else
+	// 	ft_putstr("NULL\n");
+	// ft_putstr("next set to ");
+	// if (next)
+	// 	show_address(next);
+	// else
+	// 	ft_putstr("NULL\n");
+	// show_alloc_mem();
+	// ft_putstr("allocation zone: ");
+	// ft_putnbr((*alloc_point)->zone);
+	// ft_putchar('\n');
+	// ft_putstr("Mout\n");
 	return ((*alloc_point + 1));
 }
