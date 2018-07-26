@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:53:07 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/23 10:23:06 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/26 17:53:42 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@ int		main(void)
 	char	*a;
 
 	i = 0;
-	while (i < 1024)
+	while (i < 12)
 	{ 
-		a = malloc(1024);
+		// ft_putnbr(i);
+		// ft_putchar('\n');
+		a = (char*)ft_malloc(115);
+		// a[0] = 42;
 		i++;
 	}
+	// show_alloc_mem();
 	return (0);
 }

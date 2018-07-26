@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 17:23:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/24 17:00:38 by acottier         ###   ########.fr       */
+/*   Updated: 2018/07/26 11:46:19 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ static void		*move_memory(t_ctrl *target, size_t size)
 		return (target + 1);
 	}
 	// ft_putstr("calling malloc\n");
-	new_alloc = malloc(size);
+	new_alloc = ft_malloc(size);
 	ft_memcpy(new_alloc, target, size);
 	// ft_putstr("calling free\n");
-	free(target + 1);
+	ft_free(target + 1);
 	// show_alloc_mem();
 	// ft_putstr("Rout 2\n");
 	return (new_alloc);
 }
 
-void			*realloc(void *ptr, size_t size)
+void			*ft_realloc(void *ptr, size_t size)
 {
 	t_ctrl	*target;
 
@@ -56,16 +56,16 @@ void			*realloc(void *ptr, size_t size)
 	if (!ptr)
 	{
 		// ft_putstr("Rout 0: calling malloc\n");
-		return (malloc(size));
+		return (ft_malloc(size));
 	}
 	// show_address(ptr);
 	ptr -= CTRL;
 	if (ptr && size == 0)
 	{
 		// ft_putstr("calling free\n");
-		free(ptr);
+		ft_free(ptr);
 		// ft_putstr("Rout 1: calling malloc\n");
-		return (malloc(0));
+		return (ft_malloc(0));
 	}
 	target = get_memory(ptr);
 	return (move_memory(target, size));
