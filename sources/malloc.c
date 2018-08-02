@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/26 17:53:33 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/02 15:46:08 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 extern t_data	g_allocations;
 
-void		*ft_malloc(size_t size)
+void		*malloc(size_t size)
 {
-	// ft_putstr("Min: ");
-	// ft_putnbr(size);
-	// ft_putchar('\n');
+	init();
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -45,9 +43,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 		{
 			if (zone_type == -1)
 				break ;
-			target = (void*)cursor + cursor->size;
-			// ft_putstr("confirmed allocation address: ");
-			// show_address(target);
+			target = (void*)cursor + aligned_size(cursor->size);
 			return (allocate(&target, size, cursor->next, cursor));
 		}
 		if (!(cursor->next))
@@ -57,7 +53,6 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	cursor->next = new_zone(cursor, size, zone_type);
 	cursor = cursor->next;
 	return (allocate(&cursor, size, NULL, cursor->prev));
-	// return (allocate(&(cursor->next), size, NULL, cursor));
 }
 
 int			available_space(t_ctrl *cur, int size)
@@ -117,39 +112,11 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		else
 			(*alloc_point)->zone = prev->zone + 1;
 	}
-	// if (!prev || prev->zone != (*alloc_point)->zone)
-	// 	(*alloc_point)->pos = 0;
-	// else
-	// 	(*alloc_point)->pos = prev->pos + prev->size;
-	// ft_putstr("position set at \n");
-	// ft_putnbr((*alloc_point)->pos);
-	// ft_putchar('\n');
-	// (*alloc_point)->zone = prev ? prev->zone : 0;
-	// if ((*alloc_point)->pos == 0 && prev)
-		// (*alloc_point)->zone++;
 	(*alloc_point)->prev = prev;
 	(*alloc_point)->next = next;
 	if (prev && prev != *alloc_point)
 		prev->next = (*alloc_point);
 	if (next && next != *alloc_point)
 		next->prev = (*alloc_point);
-	// ft_putstr("control structure start: ");
-	// show_address(*alloc_point);
-	// ft_putstr("memory segment start: ");
-	// show_address(*alloc_point + 1);
-	// ft_putstr("memory segment end: ");
-	// show_address((void*)*alloc_point + CTRL + size);
-	// ft_putstr("prev set to ");
-	// if (prev)
-	// 	show_address(prev);
-	// else
-	// 	ft_putstr("NULL\n");
-	// ft_putstr("next set to ");
-	// if (next)
-	// 	show_address(next);
-	// else
-	// 	ft_putstr("NULL\n");
-	// ft_putstr("\n");
-	// ft_putstr("Mout\n");
 	return ((*alloc_point + 1));
 }

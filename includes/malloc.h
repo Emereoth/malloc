@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/26 17:05:00 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/02 15:41:21 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <sys/mman.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 typedef unsigned long int	t_uli;
 
@@ -43,12 +44,9 @@ t_data		g_allocations;
 enum
 {
 	CTRL = sizeof(struct s_ctrl),
-	// TINY = 4096,
-	TINY = 115,
-	// TINY = 992,
+	TINY = 279,
 	SMALL = 2573,
-	// SMALL = 127000,
-	TINY_ZONE = (TINY + CTRL) * 10 + 84,
+	TINY_ZONE = (TINY + CTRL) * 100 + 68,
 	SMALL_ZONE = (SMALL + CTRL) * 100 + 44,
 };
 
@@ -85,6 +83,12 @@ void			show_alloc_mem();
 void			to_hex(t_uli address);
 
 /*
+** ALLOCATION_DUMP.C
+*/
+
+void			allocation_dump();
+
+/*
 ** UTILITIES
 */
 
@@ -99,5 +103,7 @@ void			show_address(t_ctrl *address);
 */
 
 size_t			aligned_size(size_t size);
+void			show_readable(int fd, char *cursor, size_t limit);
+void			init();
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:45:24 by acottier          #+#    #+#             */
-/*   Updated: 2018/07/19 13:12:25 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/01 16:59:09 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		ft_memcpy(void *dst, void *src, size_t n)
 	new_dst = (unsigned char *)dst;
 	new_src = (unsigned char *)src;
 	i = 0;
-	while (i < n)
+	while (i < n && new_src[i])
 	{
 		new_dst[i] = new_src[i];
 		i++;

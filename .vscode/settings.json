@@ -10,6 +10,8 @@
 		"string": "c",
 		"string_view": "c",
 		"utility": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"malloc.h": "c",
+		"mman.h": "c"
 	}
 }
