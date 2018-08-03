@@ -104,6 +104,8 @@ void			show_address(t_ctrl *address);
 
 size_t			aligned_size(size_t size);
 void			show_readable(int fd, char *cursor, size_t limit);
+int				zone_is_empty(t_ctrl *alloc);
+int				only_zone(t_ctrl *alloc);
 void			init();
 
 #endif

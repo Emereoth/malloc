@@ -41,6 +41,51 @@ void		show_readable(int fd, char *cursor, size_t limit)
 	}
 }
 
+int			zone_is_empty(t_ctrl *alloc)
+{
+	t_ctrl	*cursor;
+	int		i;
+
+	cursor = alloc;
+	i = 0;
+	while (cursor && cursor->zone == alloc->zone)
+	{
+		if (cursor->size > 0)
+			i++;
+		cursor = cursor->prev;
+	}
+	if (i > 1)
+		return (1);
+	i = 0;
+	cursor = alloc;
+	while (cursor && cursor->zone == alloc->zone)
+	{
+		if (cursor->size > 0)
+			i++;
+		cursor = cursor->next;
+	}
+	if (i > 1)
+		return (1);
+	return (0);
+}
+
+int			only_zone(t_ctrl	*alloc)
+{
+	t_ctrl	*cursor;
+
+	cursor = alloc;
+	while (cursor && cursor->zone == alloc->zone)
+		cursor = cursor->prev;
+	if (cursor)
+		return (1);
+	cursor = alloc;
+	while (cursor && (cursor->zone == alloc->zone || cursor->size == 0))
+		cursor = cursor->next;
+	if (cursor)
+		return (1);
+	return (0);
+}
+
 void		init(void)
 {
 	static int	tiny = 0;
