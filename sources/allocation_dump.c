@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 17:05:57 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/02 15:46:03 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 16:21:25 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ static void dump_allocs(int fd, t_ctrl *allocs)
 {
     while (allocs)
     {
-        dump_memory(fd, (char *)(allocs + 1), allocs->size - CTRL);
-        write(fd, "\n", 1);
+        if (allocs->size - CTRL > 0)
+        {
+            dump_memory(fd, (char *)(allocs + 1), allocs->size - CTRL);
+            write(fd, "\n", 1);
+        }
         allocs = allocs->next;
     }
 }

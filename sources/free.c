@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 14:33:23 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/01 14:36:00 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 18:18:26 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ static void		zone_purge(t_ctrl *to_free, t_ctrl *head)
 	}
 	else
 	{
-		if (only_zone(to_free) == 0)
-			head = NULL;
-		else
+		if (only_zone(to_free) != 0)
 		{
 			head = to_free->next;
 			update_zone_number(head, 0);
@@ -66,6 +64,7 @@ static void		clear_memory(t_ctrl *to_free)
 {
 	t_ctrl		*head;
 
+	// ft_putstr("entering clear_memory()\n");
 	if (to_free->zone_size == TINY_ZONE)
 		head = g_allocations.tiny;
 	else if (to_free->zone_size == SMALL_ZONE)
@@ -73,15 +72,26 @@ static void		clear_memory(t_ctrl *to_free)
 	else
 		head = g_allocations.large;
 	to_free->size = 0;
-	if (to_free->pos != 0 || zone_is_empty(to_free))
+	if (to_free->pos != 0 || zone_is_empty(to_free) == 0)
 	{
 		if (to_free->prev)
+		{
+			// show_address(to_free->prev);
+			// ft_putstr("-> next set to ");
+			// show_address(to_free->next);
 			to_free->prev->next = to_free->next;
+		}
 		if (to_free->next)
+		{
+			// show_address(to_free->next);
+			// ft_putstr("-> prev set to ");
+			// show_address(to_free->prev);
 			to_free->next->prev = to_free->prev;
+		}
 	}
-	if (zone_is_empty(to_free))
+	if (zone_is_empty(to_free) == 0)
 		zone_purge(to_free, head);
+	// ft_putstr("memory cleaning done\n");
 	to_free = NULL;
 
 }
@@ -104,6 +114,7 @@ void			free(void *ptr)
 {
 	t_ctrl	*to_free;
 
+	// ft_putstr("entering free()\n");
 	if (!ptr || !(ptr - CTRL))
 		return ;
 	ptr -= CTRL;

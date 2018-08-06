@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 15:56:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/02 15:42:09 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 18:09:22 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,18 @@ int			zone_is_empty(t_ctrl *alloc)
 	t_ctrl	*cursor;
 	int		i;
 
-	cursor = alloc;
+	// ft_putstr("zone_is_empty()\n");
+	// show_alloc_mem();
 	i = 0;
+	cursor = alloc;
 	while (cursor && cursor->zone == alloc->zone)
 	{
+		// show_address(cursor);
 		if (cursor->size > 0)
 			i++;
 		cursor = cursor->prev;
 	}
-	if (i > 1)
-		return (1);
-	i = 0;
+	// ft_putstr("prev done\n");
 	cursor = alloc;
 	while (cursor && cursor->zone == alloc->zone)
 	{
@@ -64,8 +65,13 @@ int			zone_is_empty(t_ctrl *alloc)
 			i++;
 		cursor = cursor->next;
 	}
-	if (i > 1)
+	// ft_putstr("nexts done\n");
+	// ft_putstr("total elements in zone: ");
+	// ft_putnbr(i);
+	// ft_putchar('\n');
+	if (i > 2)
 		return (1);
+	// ft_putstr("zone IS empty\n");
 	return (0);
 }
 

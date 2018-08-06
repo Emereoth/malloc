@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/02 15:30:35 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 16:34:11 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static void		display_chunk(t_ctrl *alloc_list)
 		to_hex((t_uli)((void*)alloc_list + alloc_list->size));
 	ft_putstr(" : ");
 	ft_putnbr(alloc_list->size - CTRL);
-	ft_putstr(" octets\n");
+	ft_putstr(" bytes (zone ");
+	ft_putnbr(alloc_list->zone);
+	ft_putstr(")\n");
 }
 
 static size_t	display_zone(t_ctrl *alloc_list, char *type)
@@ -42,7 +44,6 @@ static size_t	display_zone(t_ctrl *alloc_list, char *type)
 	ft_putchar('\n');
 	while (alloc_list)
 	{
-		ft_putnbr(alloc_list->size);
 		display_chunk(alloc_list);
 		zone_total += alloc_list->size - CTRL;
 		alloc_list = alloc_list->next;
@@ -75,5 +76,5 @@ void			show_alloc_mem(void)
 		total_size += display_zone(cursor, "LARGE : ");
 	ft_putstr("Total: ");
 	ft_putnbr(total_size);
-	ft_putstr(" octets\n");
+	ft_putstr(" bytes\n");
 }

@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:45:24 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/01 16:59:09 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 14:50:05 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void		ft_putnbr(int n)
 void		ft_memcpy(void *dst, void *src, size_t n)
 {
 	size_t			i;
-	unsigned char	*new_dst;
-	unsigned char	*new_src;
+	char			*new_dst;
+	char			*new_src;
 
 	if (!dst || !src || n == 0)
 		return ;
-	new_dst = (unsigned char *)dst;
-	new_src = (unsigned char *)src;
+	new_dst = (char *)dst;
+	new_src = (char *)src;
 	i = 0;
-	while (i < n && new_src[i])
+	while (i < n)
 	{
 		new_dst[i] = new_src[i];
 		i++;

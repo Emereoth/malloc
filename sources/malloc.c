@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/02 15:46:08 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/06 18:17:53 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,19 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 	}
 	(*alloc_point)->prev = prev;
 	(*alloc_point)->next = next;
+	// ft_putstr("new alloc: ");
+	// show_address(*alloc_point);
 	if (prev && prev != *alloc_point)
+	{
+		// ft_putstr("prev: ");
+		// show_address(prev);
 		prev->next = (*alloc_point);
+	}
 	if (next && next != *alloc_point)
+	{
+		// ft_putstr("next: ");
+		// show_address(next);
 		next->prev = (*alloc_point);
+	}
 	return ((*alloc_point + 1));
 }
