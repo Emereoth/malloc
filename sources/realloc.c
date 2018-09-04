@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 17:23:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/06 16:06:10 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/03 11:38:25 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ static t_ctrl	*get_memory(void *ptr)
 static void		*move_memory(t_ctrl *target, size_t size)
 {
 	t_ctrl	*new_alloc;
+	size_t	to_copy;
 
 	if (!target)
 		return (NULL);
-	if (available_space(target, size) == 0)
+	if (target->zone_size != TINY_ZONE && target->zone_size != SMALL_ZONE
+		&& available_space(target, size) == 0)
 	{
 		target->size = CTRL + size;
 		return (target + 1);
 	}
 	new_alloc = malloc(size);
-	ft_memcpy(new_alloc, target + 1, size);
+	to_copy = (target->size >= size) ? size : target->size;
+	ft_memcpy(new_alloc, target + 1, to_copy);
 	free(target + 1);
 	return (new_alloc);
 }

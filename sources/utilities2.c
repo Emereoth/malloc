@@ -6,17 +6,24 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 15:56:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/06 18:09:22 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/03 11:36:31 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-size_t		aligned_size(size_t size)
+t_ctrl		*align_target(t_ctrl *cursor)
 {
+	t_ctrl	*target;
+	size_t	size;
+
+	if (cursor->size == 0)
+		return (cursor);
+	size = cursor->size;
 	while (size % 16 != 0)
 		size++;
-	return (size);
+	target = (void *)cursor + size;
+	return (target);
 }
 
 void		show_readable(int fd, char *cursor, size_t limit)
@@ -46,18 +53,14 @@ int			zone_is_empty(t_ctrl *alloc)
 	t_ctrl	*cursor;
 	int		i;
 
-	// ft_putstr("zone_is_empty()\n");
-	// show_alloc_mem();
 	i = 0;
 	cursor = alloc;
 	while (cursor && cursor->zone == alloc->zone)
 	{
-		// show_address(cursor);
 		if (cursor->size > 0)
 			i++;
 		cursor = cursor->prev;
 	}
-	// ft_putstr("prev done\n");
 	cursor = alloc;
 	while (cursor && cursor->zone == alloc->zone)
 	{
@@ -65,17 +68,12 @@ int			zone_is_empty(t_ctrl *alloc)
 			i++;
 		cursor = cursor->next;
 	}
-	// ft_putstr("nexts done\n");
-	// ft_putstr("total elements in zone: ");
-	// ft_putnbr(i);
-	// ft_putchar('\n');
 	if (i > 2)
 		return (1);
-	// ft_putstr("zone IS empty\n");
 	return (0);
 }
 
-int			only_zone(t_ctrl	*alloc)
+int			only_zone(t_ctrl *alloc)
 {
 	t_ctrl	*cursor;
 
@@ -97,7 +95,7 @@ void		init(void)
 	static int	tiny = 0;
 	static int	small = 0;
 	static int	large = 0;
-	
+
 	if (tiny == 0)
 	{
 		g_allocations.tiny = NULL;

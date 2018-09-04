@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/06 18:17:53 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/13 14:24:13 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 		{
 			if (zone_type == -1)
 				break ;
-			target = (void*)cursor + aligned_size(cursor->size);
+			target = align_target(cursor);
 			return (allocate(&target, size, cursor->next, cursor));
 		}
 		if (!(cursor->next))
@@ -112,21 +112,17 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		else
 			(*alloc_point)->zone = prev->zone + 1;
 	}
-	(*alloc_point)->prev = prev;
-	(*alloc_point)->next = next;
-	// ft_putstr("new alloc: ");
-	// show_address(*alloc_point);
+	(*alloc_point)->prev = NULL;
+	(*alloc_point)->next = NULL;
 	if (prev && prev != *alloc_point)
 	{
-		// ft_putstr("prev: ");
-		// show_address(prev);
-		prev->next = (*alloc_point);
+		(*alloc_point)->prev = prev;
+		prev->next = *alloc_point;
 	}
 	if (next && next != *alloc_point)
 	{
-		// ft_putstr("next: ");
-		// show_address(next);
-		next->prev = (*alloc_point);
+		(*alloc_point)->next = next;
+		next->prev = *alloc_point;
 	}
 	return ((*alloc_point + 1));
 }

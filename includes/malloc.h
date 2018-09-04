@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/02 15:41:21 by acottier         ###   ########.fr       */
+/*   Updated: 2018/08/13 13:04:29 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			show_address(t_ctrl *address);
 ** UTILITIES2.c
 */
 
-size_t			aligned_size(size_t size);
+t_ctrl			*align_target(t_ctrl *cursor);
 void			show_readable(int fd, char *cursor, size_t limit);
 int				zone_is_empty(t_ctrl *alloc);
 int				only_zone(t_ctrl *alloc);
