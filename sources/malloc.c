@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/13 14:24:13 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/18 16:17:11 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 
 extern t_data	g_allocations;
 
+/*
+** Basic malloc(). Starts allocation process by calling find_alloc_point().
+*/
+
 void		*malloc(size_t size)
 {
 	init();
+	ft_putstr("min: ");
+	ft_putnbr(size);
+	ft_putchar('\n');
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -25,6 +32,11 @@ void		*malloc(size_t size)
 	else
 		return (find_alloc_point(size, &g_allocations.large, -1));
 }
+
+/*
+** Searches for an address where the allocation can be stored.
+** If none exists in current zone, a new zone is created.
+*/
 
 void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 {
@@ -39,7 +51,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	cursor = *alloc;
 	while (cursor)
 	{
-		if (available_space(cursor, size) == 0)
+		if (size <= SMALL && available_space(cursor, size) == 0)
 		{
 			if (zone_type == -1)
 				break ;
@@ -54,6 +66,10 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	cursor = cursor->next;
 	return (allocate(&cursor, size, NULL, cursor->prev));
 }
+
+/*
+** Checks if there is enough space right after current allocation to assign it to new one.
+*/
 
 int			available_space(t_ctrl *cur, int size)
 {
@@ -73,6 +89,10 @@ int			available_space(t_ctrl *cur, int size)
 	}
 	return (1);
 }
+
+/*
+** Creates a new allocation zone.
+*/
 
 t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 {
@@ -98,12 +118,18 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 	return (res);
 }
 
+/*
+** Initializes metadata for the new allocation.
+*/
+
 void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 			t_ctrl *prev)
 {
+	ft_putstr("alloc point found, allocating: ");
+	show_address(*alloc_point);
 	(*alloc_point)->size = CTRL + size;
-	(*alloc_point)->zone = (prev ? prev->zone : 0);
-	(*alloc_point)->pos = 0;
+	if (next)
+		(*alloc_point)->zone = (prev ? prev->zone : 0);
 	if (prev)
 	{
 		(*alloc_point)->zone_size = prev->zone_size;
@@ -124,5 +150,6 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		(*alloc_point)->next = next;
 		next->prev = *alloc_point;
 	}
+	ft_putstr("mout\n");
 	return ((*alloc_point + 1));
 }

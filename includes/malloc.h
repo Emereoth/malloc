@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/13 13:04:29 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/18 15:12:17 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ enum
 	SMALL = 2573,
 	TINY_ZONE = (TINY + CTRL) * 100 + 68,
 	SMALL_ZONE = (SMALL + CTRL) * 100 + 44,
+	TINY_HEAD = 0,
+	SMALL_HEAD = 1,
+	LARGE_HEAD = 2
 };
 
 /*

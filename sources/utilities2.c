@@ -6,11 +6,15 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 15:56:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/03 11:36:31 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/18 15:52:30 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
+
+/*
+** Aligns the specified pointer on 16 bytes.
+*/
 
 t_ctrl		*align_target(t_ctrl *cursor)
 {
@@ -25,6 +29,10 @@ t_ctrl		*align_target(t_ctrl *cursor)
 	target = (void *)cursor + size;
 	return (target);
 }
+
+/*
+** Transforms the given characters into ASCII readable symbols.
+*/
 
 void		show_readable(int fd, char *cursor, size_t limit)
 {
@@ -48,6 +56,10 @@ void		show_readable(int fd, char *cursor, size_t limit)
 	}
 }
 
+/*
+** Checks if the zone contains more than one allocation.
+*/
+
 int			zone_is_empty(t_ctrl *alloc)
 {
 	t_ctrl	*cursor;
@@ -55,6 +67,8 @@ int			zone_is_empty(t_ctrl *alloc)
 
 	i = 0;
 	cursor = alloc;
+	if (alloc->zone_size != TINY_ZONE && alloc->zone_size != SMALL_ZONE)
+		return (0);
 	while (cursor && cursor->zone == alloc->zone)
 	{
 		if (cursor->size > 0)
@@ -73,6 +87,10 @@ int			zone_is_empty(t_ctrl *alloc)
 	return (0);
 }
 
+/*
+** Checks if there's more than one zone in the current alloc list.
+*/
+
 int			only_zone(t_ctrl *alloc)
 {
 	t_ctrl	*cursor;
@@ -89,6 +107,10 @@ int			only_zone(t_ctrl *alloc)
 		return (1);
 	return (0);
 }
+
+/*
+** Initializes all the allocation lists to NULL.
+*/
 
 void		init(void)
 {

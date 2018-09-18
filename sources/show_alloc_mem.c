@@ -6,13 +6,17 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/08/06 16:34:11 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/18 15:25:49 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
 extern t_data	g_allocations;
+
+/*
+** Displays an allocation.
+*/
 
 static void		display_chunk(t_ctrl *alloc_list)
 {
@@ -33,6 +37,10 @@ static void		display_chunk(t_ctrl *alloc_list)
 	ft_putstr(")\n");
 }
 
+/*
+** Displays all allocations in a zone.
+*/
+
 static size_t	display_zone(t_ctrl *alloc_list, char *type)
 {
 	size_t		zone_total;
@@ -47,9 +55,14 @@ static size_t	display_zone(t_ctrl *alloc_list, char *type)
 		display_chunk(alloc_list);
 		zone_total += alloc_list->size - CTRL;
 		alloc_list = alloc_list->next;
+		// ft_putstr("chunk size added to total, moving on to next chunk\n");
 	}
 	return (zone_total);
 }
+
+/*
+** Transforms a pointer into an hexadecimal address.
+*/
 
 void			to_hex(t_uli address)
 {
@@ -58,6 +71,10 @@ void			to_hex(t_uli address)
 	address = address % 16 < 10 ? address % 16 + 48 : address % 16 + 55;
 	write(1, &address, 1);
 }
+
+/*
+** Displays all allocated memory.
+*/
 
 void			show_alloc_mem(void)
 {

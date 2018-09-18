@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:45:24 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/03 11:23:51 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/18 14:56:11 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ void		ft_memcpy(void *dst, void *src, size_t n)
 		i++;
 	}
 }
+
+/*
+** Displays (in hexadecimal) the address of the specified pointer.
+*/
 
 void		show_address(t_ctrl *address)
 {

@@ -1,0 +1,128 @@
+=========BEGIN BRUTALIZE=========
+Total: 0 bytes
+
+=> new iteration: malloc TINY size 29519578
+min: 29519578
+alloc point found, allocating: 0x108763000
+mout
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+Total: 29519578 bytes
+
+=> new iteration: malloc LARGE size 8376212
+min: 8376212
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+Total: 29519578 bytes
+position at end of loop: 0x108763000
+Loop exited, creating new zone: 0x10A38A000
+linking new zone to previous link: 0x108763000
+alloc point found, allocating: 0x10A38A000
+mout
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+Total: 37895790 bytes
+
+=> new iteration: malloc LARGE size 4618667
+min: 4618667
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+Total: 37895790 bytes
+position at end of loop: 0x10A38A000
+Loop exited, creating new zone: 0x10AB87000
+linking new zone to previous link: 0x10A38A000
+alloc point found, allocating: 0x10AB87000
+mout
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+Total: 42514457 bytes
+
+=> new iteration: no op
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+Total: 42514457 bytes
+
+=> new iteration: malloc SMALL size 37299002
+min: 37299002
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+Total: 42514457 bytes
+position at end of loop: 0x10AB87000
+Loop exited, creating new zone: 0x10AFEF000
+linking new zone to previous link: 0x10AB87000
+alloc point found, allocating: 0x10AFEF000
+mout
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+Total: 79813459 bytes
+
+=> new iteration: malloc TINY size 37025951
+min: 37025951
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+Total: 79813459 bytes
+position at end of loop: 0x10AFEF000
+Loop exited, creating new zone: 0x10D382000
+linking new zone to previous link: 0x10AFEF000
+alloc point found, allocating: 0x10D382000
+mout
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+0x10D382030 - 0x10F6D18CF : 37025951 bytes (zone 4)
+Total: 116839410 bytes
+
+=> new iteration: no op
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+0x10D382030 - 0x10F6D18CF : 37025951 bytes (zone 4)
+Total: 116839410 bytes
+
+=> new iteration: no op
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+0x10D382030 - 0x10F6D18CF : 37025951 bytes (zone 4)
+Total: 116839410 bytes
+
+=> new iteration: no op
+=> filling available memory: OK !
+LARGE : 0x108763000
+0x108763030 - 0x10A389F0A : 29519578 bytes (zone 0)
+0x10A38A030 - 0x10AB86FC4 : 8376212 bytes (zone 1)
+0x10AB87030 - 0x10AFEE9DB : 4618667 bytes (zone 2)
+0x10AFEF030 - 0x10D38136A : 37299002 bytes (zone 3)
+0x10D382030 - 0x10F6D18CF : 37025951 bytes (zone 4)
+Total: 116839410 bytes
+
+=> new iteration: no op
+=> filling available memory: OK !
