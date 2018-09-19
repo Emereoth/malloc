@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 14:33:23 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 15:53:16 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:52:47 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void		update_zone_number(t_ctrl *new_head, int pos)
 	int		new_nb;
 	t_ctrl	*cursor;
 
+	if (!new_head)
+		return ;
 	old_nb = new_head->zone;
 	new_nb = pos;
 	cursor = new_head;
@@ -49,36 +51,29 @@ static void		zone_purge(t_ctrl *to_free)
 {
 	if (to_free->zone != 0)
 	{
+		// ft_putstr("not first zone, heads don't move\n");
 		if (to_free->next)
 			update_zone_number(to_free->next, to_free->zone);
-		while (to_free->prev && to_free->prev->zone == to_free->zone)
-			to_free = to_free->prev;
-		munmap(to_free, to_free->zone_size);
+		// ft_putstr("unmapping ");
+		// ft_putnbr(to_free->zone_size);
+		// ft_putstr(" bytes at address ");
+		// show_address(to_free);
+		munmap(to_free->zone_start, to_free->zone_size);
 	}
 	else
 	{
-		if (only_zone(to_free) != 0)
-		{
-			ft_putstr("to_free->next : ");
-			show_address(to_free->next);
-			ft_putstr("to_free->prev : ");
-			show_address(to_free->prev);
-			// *head = *(to_free->next);
-			if (to_free->zone_size == TINY_ZONE)
-				g_allocations.tiny = to_free->next;
-			else if (to_free->zone_size == SMALL_ZONE)
-				g_allocations.small = to_free->next;
-			else
-				g_allocations.large = to_free->next;
-			ft_putstr("updated heads:\n");
-			show_address(g_allocations.tiny);
-			show_address(g_allocations.small);
-			show_address(g_allocations.large);
-			// update_zone_number(heads[head_index], 0);
-			while (to_free->prev && to_free->prev->zone == to_free->zone)
-				to_free = to_free->prev;
-			munmap(to_free, to_free->zone_size);
-		}
+		if (to_free->zone_size == TINY_ZONE)
+			g_allocations.tiny = to_free->next;
+		else if (to_free->zone_size == SMALL_ZONE)
+			g_allocations.small = to_free->next;
+		else
+			g_allocations.large = to_free->next;
+		// ft_putstr("updated heads:\n");
+		// show_address(g_allocations.tiny);
+		// show_address(g_allocations.small);
+		// show_address(g_allocations.large);
+		update_zone_number(to_free->next, 0);
+		munmap(to_free->zone_start, to_free->zone_size);
 	}
 }
 
@@ -89,30 +84,28 @@ static void		zone_purge(t_ctrl *to_free)
 
 static void		clear_memory(t_ctrl *to_free)
 {
-	ft_putstr("Clearing memory segment.\n");
-	if (to_free->pos != 0 || zone_is_empty(to_free) == 1)
-	{
-		if (to_free->prev)
-			to_free->prev->next = to_free->next;
-		if (to_free->next)
-			to_free->next->prev = to_free->prev;
-	}
+	// ft_putstr("Clearing memory segment ");
+	// show_address(to_free + 1);
+	// ft_putstr("(");
+	// ft_putnbr(to_free->size - CTRL);
+	// ft_putstr(" bytes)\n");
+	// ft_putstr("linked prev and next pointers together\n");
+	if (to_free->prev)
+		to_free->prev->next = to_free->next;
+	if (to_free->next)
+		to_free->next->prev = to_free->prev;
+	// ft_putstr("prev: ");
+	// show_address(to_free->prev);
+	// ft_putstr("next: ");
+	// show_address(to_free->next);
 	if (zone_is_empty(to_free) == 0)
 	{
 		zone_purge(to_free);
-		ft_putstr("Zone purged.\n");
+		// ft_putstr("Zone purged.\n");
 		return ;
 	}
-	if (to_free->pos != 0)
-	{
-		ft_putstr("Alloc is not at zone start, setting pointer to NULL.\n");
-		to_free = NULL;
-	}
-	else
-	{
-		ft_putstr("Alloc is at zone start, reducing alloc size to CTRL.\n");
-		to_free->size = CTRL;
-	}
+	to_free = NULL;
+	// ft_putstr("Alloc set to NULL.\n");
 }
 
 /*
@@ -141,14 +134,14 @@ void			free(void *ptr)
 {
 	t_ctrl	*to_free;
 
-	ft_putstr("fin\n");
+	// ft_putstr("fin\n");
 	if (!ptr || !(ptr - CTRL))
 	{
-		ft_putstr("fout\n");
+		// ft_putstr("fout\n");
 		return ;
 	}
-	ft_putstr("pointer exists and is valid: ");
-	show_address(ptr);
+	// ft_putstr("pointer exists and is valid: ");
+	// show_address(ptr);
 	ptr -= CTRL;
 	to_free = find_memory(ptr, g_allocations.tiny);
 	if (!to_free)
@@ -157,5 +150,5 @@ void			free(void *ptr)
 		to_free = find_memory(ptr, g_allocations.large);
 	if (to_free)
 		clear_memory(to_free);
-	ft_putstr("fout\n");
+	// ft_putstr("fout\n");
 }

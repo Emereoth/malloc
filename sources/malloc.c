@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 16:17:11 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:52:15 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ extern t_data	g_allocations;
 void		*malloc(size_t size)
 {
 	init();
-	ft_putstr("min: ");
-	ft_putnbr(size);
-	ft_putchar('\n');
+	// ft_putstr("min: ");
+	// ft_putnbr(size);
+	// ft_putchar('\n');
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -125,18 +125,16 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 			t_ctrl *prev)
 {
-	ft_putstr("alloc point found, allocating: ");
-	show_address(*alloc_point);
+	// ft_putstr("alloc point found, allocating: ");
+	// show_address(*alloc_point);
 	(*alloc_point)->size = CTRL + size;
-	if (next)
-		(*alloc_point)->zone = (prev ? prev->zone : 0);
-	if (prev)
+	if (size <= SMALL)
+		setup_standard_alloc(*alloc_point, prev);
+	else
 	{
-		(*alloc_point)->zone_size = prev->zone_size;
-		if (prev->zone_size - prev->pos - prev->size >= CTRL + size)
-			(*alloc_point)->pos = prev->pos + prev->size;
-		else
-			(*alloc_point)->zone = prev->zone + 1;
+		(*alloc_point)->pos = 0;
+		(*alloc_point)->zone = (prev ? prev->zone + 1 : 0);
+		(*alloc_point)->zone_size = (*alloc_point)->size;
 	}
 	(*alloc_point)->prev = NULL;
 	(*alloc_point)->next = NULL;
@@ -150,6 +148,6 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		(*alloc_point)->next = next;
 		next->prev = *alloc_point;
 	}
-	ft_putstr("mout\n");
+	// ft_putstr("mout\n");
 	return ((*alloc_point + 1));
 }

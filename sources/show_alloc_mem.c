@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 13:22:08 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 15:25:49 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 14:37:04 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static size_t	display_zone(t_ctrl *alloc_list, char *type)
 		display_chunk(alloc_list);
 		zone_total += alloc_list->size - CTRL;
 		alloc_list = alloc_list->next;
-		// ft_putstr("chunk size added to total, moving on to next chunk\n");
 	}
 	return (zone_total);
 }

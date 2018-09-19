@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 17:23:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 14:51:34 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:52:57 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static void		*move_memory(t_ctrl *target, size_t size)
 
 	if (!target)
 		return (NULL);
-	if (target->zone_size != TINY_ZONE && target->zone_size != SMALL_ZONE
-		&& available_space(target, size) == 0)
+	if (target->zone_size <= SMALL_ZONE && available_space(target, size) == 0)
 	{
 		target->size = CTRL + size;
 		return (target + 1);
@@ -50,7 +49,7 @@ static void		*move_memory(t_ctrl *target, size_t size)
 	new_alloc = malloc(size);
 	to_copy = (target->size >= size) ? size : target->size;
 	ft_memcpy(new_alloc, target + 1, to_copy);
-	ft_putstr("rout via free\n");
+	// ft_putstr("rout via free\n");
 	free(target + 1);
 	return (new_alloc);
 }
@@ -63,16 +62,16 @@ void			*realloc(void *ptr, size_t size)
 {
 	t_ctrl	*target;
 
-	ft_putstr("rin\n");
+	// ft_putstr("rin\n");
 	if (!ptr)
 	{
-		ft_putstr("rout via malloc\n");
+		// ft_putstr("rout via malloc\n");
 		return (malloc(size));
 	}
 	ptr -= CTRL;
 	if (ptr && size == 0)
 	{
-		ft_putstr("rout via free and malloc\n");
+		// ft_putstr("rout via free and malloc\n");
 		free(ptr + CTRL);
 		return (malloc(0));
 	}

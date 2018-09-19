@@ -6,11 +6,12 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 17:05:57 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 15:12:10 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:43:41 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
+#include <stdint.h>
 
 /*
 ** Writes the hexadecimal address of the current 16-byte segment to a file.

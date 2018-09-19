@@ -12,6 +12,8 @@
 		"utility": "c",
 		"stdio.h": "c",
 		"malloc.h": "c",
-		"mman.h": "c"
+		"mman.h": "c",
+		"stdint.h": "c",
+		"__config": "c"
 	}
 }

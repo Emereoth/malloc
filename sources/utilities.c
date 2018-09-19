@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 18:45:24 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/18 14:56:11 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/19 16:47:20 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		ft_putstr(char *str)
 	}
 }
 
-void		ft_putnbr(int n)
+void		ft_putnbr(long long n)
 {
 	if (n == -2147483648)
 		write(1, "-2147483648", 11);
