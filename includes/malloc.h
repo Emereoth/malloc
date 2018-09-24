@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/24 15:26:38 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:34:50 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ enum
 	SMALL = 2565,
 	TINY_ZONE = (TINY + CTRL) * 104,
 	SMALL_ZONE = (SMALL + CTRL) * 100 + 44,
- };
+};
 
 /*
 ** MALLOC

@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 14:33:23 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/24 15:27:25 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:32:46 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void		clear_memory(t_ctrl *to_free)
 	if (to_free->next)
 		to_free->next->prev = to_free->prev;
 	check_empty_zones(to_free->zone_size);
-	// to_free = NULL;
 }
 
 /*
-** Walks through allocated memory to check if passed pointer exists and is in use.
+** Walks through allocated memory to check if passed pointer exists
+** and is in use.
 */
 
 t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list)
@@ -48,7 +48,8 @@ t_ctrl			*find_memory(void *ptr, t_ctrl *alloc_list)
 }
 
 /*
-** Basic free() function. Checks if the pointer exists and is valid before freeing.
+** Basic free() function. Checks if the pointer exists and
+** is valid before freeing.
 */
 
 void			free(void *ptr)

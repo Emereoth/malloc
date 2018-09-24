@@ -6,17 +6,17 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 13:35:20 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/24 15:26:09 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:34:28 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
 /*
-** Configures tiny and large allocation metadata with its special values. 
+** Configures tiny and large allocation metadata with its special values.
 */
 
-void	setup_standard_alloc(t_ctrl *alloc, t_ctrl *prev)
+void			setup_standard_alloc(t_ctrl *alloc, t_ctrl *prev)
 {
 	t_ctrl	*cursor;
 
@@ -100,7 +100,8 @@ static void		zone_purge(t_ctrl *to_free)
 /*
 ** Goes straight to head alloc of next zone
 */
-t_ctrl	*next_zone(t_ctrl *alloc)
+
+t_ctrl			*next_zone(t_ctrl *alloc)
 {
 	unsigned char zone;
 
@@ -114,7 +115,7 @@ t_ctrl	*next_zone(t_ctrl *alloc)
 ** Walks througgh alloc zones looking for more than 1 empty zone.
 */
 
-void	check_empty_zones(size_t zone_size)
+void			check_empty_zones(size_t zone_size)
 {
 	t_ctrl	*alloc;
 	t_ctrl	*buffer_zone;

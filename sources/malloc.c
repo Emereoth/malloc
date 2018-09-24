@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/24 15:15:47 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:33:03 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 }
 
 /*
-** Checks if there is enough space right after current allocation to assign it to new one.
+** Checks if there is enough space right after current allocation
+** to assign it to new one.
 */
 
 int			available_space(t_ctrl *cur, int size)
