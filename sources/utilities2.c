@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 15:56:34 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/19 14:30:32 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:16:46 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,7 @@ int			zone_is_empty(t_ctrl *alloc)
 		cursor = cursor->next;
 	}
 	if (i > 2)
-	{
-		// ft_putstr("Zone isn't empty.\n");
 		return (1);
-	}
-	// ft_putstr("Empty zone.\n");
 	return (0);
 }
 

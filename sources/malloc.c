@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:50:45 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/19 16:52:15 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:15:47 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ extern t_data	g_allocations;
 void		*malloc(size_t size)
 {
 	init();
-	// ft_putstr("min: ");
-	// ft_putnbr(size);
-	// ft_putchar('\n');
 	if (size <= TINY)
 		return (find_alloc_point(size, &g_allocations.tiny, TINY));
 	else if (size <= SMALL)
@@ -53,9 +50,7 @@ void		*find_alloc_point(size_t size, t_ctrl **alloc, int zone_type)
 	{
 		if (size <= SMALL && available_space(cursor, size) == 0)
 		{
-			if (zone_type == -1)
-				break ;
-			target = align_target(cursor);
+			target = (void*)cursor + cursor->size;
 			return (allocate(&target, size, cursor->next, cursor));
 		}
 		if (!(cursor->next))
@@ -125,8 +120,6 @@ t_ctrl		*new_zone(t_ctrl *prev, size_t size, int zone_type)
 void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 			t_ctrl *prev)
 {
-	// ft_putstr("alloc point found, allocating: ");
-	// show_address(*alloc_point);
 	(*alloc_point)->size = CTRL + size;
 	if (size <= SMALL)
 		setup_standard_alloc(*alloc_point, prev);
@@ -148,6 +141,5 @@ void		*allocate(t_ctrl **alloc_point, size_t size, t_ctrl *next,
 		(*alloc_point)->next = next;
 		next->prev = *alloc_point;
 	}
-	// ft_putstr("mout\n");
 	return ((*alloc_point + 1));
 }

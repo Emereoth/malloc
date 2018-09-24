@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/01 17:05:57 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/19 16:43:41 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:16:30 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,16 @@ static void	dump_lists(int fd)
 		write(fd, "TINY\n\n", 6);
 		dump_allocs(fd, g_allocations.tiny);
 	}
-	ft_putstr("TINY section dumped.\n");
-	// if (g_allocations.small)
-	// {
-	// 	write(fd, "\n\n\nSMALL\n\n", 10);
-	// 	dump_allocs(fd, g_allocations.small);
-	// }
-	// ft_putstr("SMALL section dumped.\n");
-	// if (g_allocations.large)
-	// {
-	// 	write(fd, "\n\n\nLARGE\n\n", 10);
-	// 	dump_allocs(fd, g_allocations.large);
-	// }
-	// ft_putstr("LARGE section dumped.\n");
+	if (g_allocations.small)
+	{
+		write(fd, "\n\n\nSMALL\n\n", 10);
+		dump_allocs(fd, g_allocations.small);
+	}
+	if (g_allocations.large)
+	{
+		write(fd, "\n\n\nLARGE\n\n", 10);
+		dump_allocs(fd, g_allocations.large);
+	}
 	return ;
 }
 
@@ -117,7 +114,6 @@ void		allocation_dump(char *filename)
 {
 	int		fd;
 
-	ft_putstr("Starting dump.\n");
 	if (!filename)
 	{
 		ft_putstr("Invalid hexdump filename: cannot be NULL.\n");
@@ -130,9 +126,7 @@ void		allocation_dump(char *filename)
 		ft_putstr("Error: could not open dump file.\n");
 		return ;
 	}
-	ft_putstr("Dump file is valid.\n");
 	dump_lists(fd);
-	ft_putstr("Dump over.\n");
 	close(fd);
 	return ;
 }

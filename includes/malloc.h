@@ -6,7 +6,7 @@
 /*   By: acottier <acottier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:46:46 by acottier          #+#    #+#             */
-/*   Updated: 2018/09/19 16:47:30 by acottier         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:26:38 by acottier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void			init();
 */
 
 void			setup_standard_alloc(t_ctrl *alloc, t_ctrl *prev);
+void			check_empty_zones(size_t zone_size);
 
 #endif
